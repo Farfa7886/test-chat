@@ -8,15 +8,15 @@ router.post("/register", async (req, res) => {
     const { username, password } = req.body;
     try {
         const newUser = await User.create({ username, password });
-        jwt.sign({ userId: newUser._id }, config.jwt_secret, {}, (err, token) => {
+        jwt.sign({ userId: newUser._id, username }, config.jwt_secret, {}, (err, token) => {
             if (err) {
                 console.error ("[FAILURE] Failed to sign Json Web Token (" + err + ")")
                 throw err
             };
-            res.cookie("token", token).status(201).json({ 
+            res.cookie("token", token, { sameSite: 'none', secure: true }).status(201).json({ 
                 sucess: true, 
                 message: "Token created",
-                id: newUser._id
+                id: newUser._id,
             });
         });
     } catch (e) {

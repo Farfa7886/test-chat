@@ -100,6 +100,9 @@ export default function register( ) {
              >
                Register
              </button>
+             <div className="text-center mt-5">
+                <a href="">Log In</a>
+             </div>
            </div>
          </form>
        </div>

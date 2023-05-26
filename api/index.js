@@ -2,6 +2,7 @@ const express = require('express');
 const config = require("./config").apiConfigiguration;
 const mongoose = require("mongoose");
 const cors = require("cors");
+const cookieParser = require("cookie-parser")
 
 const User = require("./models/user");
 
@@ -18,7 +19,8 @@ app.use(cors({
     origin: "http://localhost:5173"
 }))
 
-app.use(express.json())
+app.use(express.json());
+app.use(cookieParser())
 
 app.get("/", (req, res) => {
     res.send("/account/register")
@@ -29,4 +31,5 @@ app.use("/account/", require("./routes/account/profile"));
 
 app.listen(config.port, () => {
     console.log("[SUCCESS] Started app on port " + config.port + " (http://localhost:" + config.port + ")")
+    console.log("[PENDING] Connection to database...")
 })
