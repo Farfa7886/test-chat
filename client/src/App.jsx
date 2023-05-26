@@ -1,8 +1,16 @@
-import Register from "./register"
+import axios from "axios"
+import config from "../config"
+import { UserContextProvider } from "./UserContext";
+import Routes from "./Routes";
 
 function App() {
+  axios.defaults.baseURL = config.baseURL;
+  axios.defaults.withCredentials = true;
+  console.log(config.baseURL)
   return (
-    <Register />
+    <UserContextProvider>
+      <Routes />
+    </UserContextProvider>
   )
 }
 
